@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>自訂隨機數字生成器（可設範圍）</title>
+    <link rel="stylesheet" href="css/genNumSet.css">
+</head>
+
+<body>
+
+    <h1>自訂隨機數字生成器</h1>
+
+    <div class="settings">
+        <div class="setting-item">
+            <label>一次生成幾多組</label>
+            <input type="number" id="groupCount" value="1" min="1" max="20" step="1">
+        </div>
+        <div class="setting-item">
+            <label>每組有幾多個數字</label>
+            <input type="number" id="numPerGroup" value="6" min="1" max="499" step="1">
+        </div>
+        <div class="setting-item">
+            <label>最大數字範圍 (1~X)</label>
+            <input type="number" id="maxRange" value="49" min="2" max="500" step="1">
+        </div>
+    </div>
+
+    <!-- 新增的提示文字 -->
+    <div id="rangeInfo">目前範圍：1～49</div>
+
+    <div id="counter">已點擊次數：0</div>
+
+    <button onclick="generateNumbers()">生成數字</button>
+
+    <div id="result">按下按鈕開始生成</div>
+
+    <script>
+        let clickCount = 0;
+        const resultElement = document.getElementById("result");
+        const counterElement = document.getElementById("counter");
+        const rangeInfoElement = document.getElementById("rangeInfo");
+        const maxRangeInput = document.getElementById("maxRange");
+
+        // 實時更新「目前範圍」顯示
+        function updateRangeInfo() {
+            let maxRange = parseInt(maxRangeInput.value) || 49;
+            maxRange = Math.max(2, Math.min(500, maxRange));
+            rangeInfoElement.textContent = `目前範圍：1～${maxRange}`;
+        }
+
+        // 頁面載入時先更新一次
+        updateRangeInfo();
+
+        // 監聽輸入變化（input 事件會在輸入時即時觸發）
+        maxRangeInput.addEventListener("input", updateRangeInfo);
+
+        function generateNumbers() {
+            // 讀取用家輸入
+            let groupCount = parseInt(document.getElementById("groupCount").value) || 1;
+            let numPerGroup = parseInt(document.getElementById("numPerGroup").value) || 6;
+            let maxRange = parseInt(maxRangeInput.value) || 49;
+
+            // 限制合理範圍
+            groupCount = Math.max(1, Math.min(20, groupCount));
+            numPerGroup = Math.max(1, numPerGroup);
+            maxRange = Math.max(2, Math.min(500, maxRange));
+
+            // 驗證：每組數字個數必須小於最大範圍
+            if (numPerGroup >= maxRange) {
+                alert(`錯誤：每組數字個數必須小於最大範圍 ${maxRange}（即 1～${maxRange}）\n你輸入咗 ${numPerGroup} 個數字，請改成 1～${maxRange - 1}。`);
+                return;
+            }
+
+            // 更新計數器
+            clickCount++;
+            counterElement.textContent = `已點擊次數：${clickCount}`;
+
+            // 清空舊結果
+            resultElement.innerHTML = "";
+
+            // 逐組生成
+            for (let g = 1; g <= groupCount; g++) {
+                const numbers = [];
+                while (numbers.length < numPerGroup) {
+                    const num = Math.floor(Math.random() * maxRange) + 1;
+                    if (!numbers.includes(num)) {
+                        numbers.push(num);
+                    }
+                }
+
+                // 排序
+                numbers.sort((a, b) => a - b);
+
+                // 顯示
+                const groupDiv = document.createElement("div");
+                groupDiv.className = "group";
+                groupDiv.innerHTML = `<strong>第 ${g} 組：</strong> ${numbers.join(" • ")}`;
+                resultElement.appendChild(groupDiv);
+            }
+
+            // 美化單組顯示
+            if (groupCount === 1) {
+                resultElement.firstChild.style.fontSize = "2.4rem";
+                resultElement.firstChild.style.letterSpacing = "6px";
+            }
+        }
+    </script>
+
+</body>
+
+</html>

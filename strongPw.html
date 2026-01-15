@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Strong Password Generator</title>
+    <link rel="stylesheet" href="css/strongPw.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Strong Password Generator</h1>
+
+        <div class="password-display" id="password">
+            <!-- Generated password appears here -->
+        </div>
+
+        <div class="controls">
+            <div class="slider-container">
+                <label for="length">Password Length: <span id="lengthValue">16</span></label>
+                <input type="range" id="length" min="8" max="32" value="16" step="1">
+            </div>
+
+            <div class="checkboxes">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="uppercase" checked> Include Uppercase Letters
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="lowercase" checked> Include Lowercase Letters
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="numbers" checked> Include Numbers
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="symbols" checked> Include Symbols
+                </label>
+            </div>
+
+            <button onclick="generatePassword()">Generate Password</button>
+        </div>
+
+        <footer>Generated passwords are created in your browser • No data is sent anywhere</footer>
+    </div>
+
+    <script>
+        const passwordDisplay = document.getElementById('password');
+        const lengthSlider = document.getElementById('length');
+        const lengthValue = document.getElementById('lengthValue');
+
+        // Update displayed length value in real-time
+        lengthSlider.addEventListener('input', () => {
+            lengthValue.textContent = lengthSlider.value;
+        });
+
+        function generatePassword() {
+            const length = parseInt(lengthSlider.value);
+            const includeUpper = document.getElementById('uppercase').checked;
+            const includeLower = document.getElementById('lowercase').checked;
+            const includeNum = document.getElementById('numbers').checked;
+            const includeSym = document.getElementById('symbols').checked;
+
+            let charset = "";
+            if (includeUpper) charset += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            if (includeLower) charset += "abcdefghijklmnopqrstuvwxyz";
+            if (includeNum) charset += "0123456789";
+            if (includeSym) charset += "!@#$%^&*()_+-=[]{}|;:,.<>?/~";
+
+            if (charset.length === 0) {
+                passwordDisplay.textContent = "Please select at least one character type";
+                return;
+            }
+
+            let password = "";
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * charset.length);
+                password += charset[randomIndex];
+            }
+
+            passwordDisplay.textContent = password;
+        }
+
+        // Generate one password when page loads
+        window.onload = generatePassword;
+
+        // Optional: copy to clipboard when clicking the password area
+        passwordDisplay.addEventListener('click', () => {
+            if (passwordDisplay.textContent && passwordDisplay.textContent !== "Please select at least one character type") {
+                navigator.clipboard.writeText(passwordDisplay.textContent)
+                    .then(() => {
+                        const original = passwordDisplay.textContent;
+                        passwordDisplay.textContent = "Copied!";
+                        setTimeout(() => {
+                            passwordDisplay.textContent = original;
+                        }, 1200);
+                    });
+            }
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,139 @@
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    max-width: 740px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #f9fafb;
+    color: #1f2937;
+}
+
+h1 {
+    text-align: center;
+    color: #af5a1e;
+    margin-bottom: 24px;
+}
+
+.container {
+    background: white;
+    padding: 28px;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.header h2 {
+    margin: 0;
+    font-size: 1.45rem;
+    color: #af641e;
+}
+
+.nav-btn {
+    background: #e5e7eb;
+    border: none;
+    font-size: 1.1rem;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.nav-btn:hover {
+    background: #d1d5db;
+}
+
+#calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    text-align: center;
+}
+
+.day-name {
+    font-weight: bold;
+    color: #63554b;
+    padding: 10px 0;
+    font-size: 0.95rem;
+}
+
+.date-cell {
+    padding: 14px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-size: 1.05rem;
+}
+
+.date-cell:hover {
+    background: #eff6ff;
+}
+
+.today {
+    background: #dbeafe;
+    font-weight: bold;
+}
+
+.selected {
+    background: #f6993b !important;
+    color: white !important;
+    font-weight: bold;
+}
+
+.other-month {
+    color: #9ca3af;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+    margin: 28px 0;
+}
+
+select,
+input[type="number"],
+button {
+    padding: 12px 16px;
+    font-size: 1.1rem;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+}
+
+select {
+    min-width: 110px;
+}
+
+input[type="number"] {
+    width: 100px;
+    text-align: center;
+}
+
+button {
+    background: #eb7e25;
+    color: white;
+    border: none;
+    cursor: pointer;
+    min-width: 140px;
+}
+
+button:hover {
+    background: #d8651d;
+}
+
+#result {
+    margin-top: 32px;
+    padding: 24px;
+    background: #fdf7f0;
+    border-radius: 12px;
+    font-size: 1.32rem;
+    text-align: center;
+    line-height: 1.55;
+    border: 1px solid #fbe3cc;
+    min-height: 100px;
+}

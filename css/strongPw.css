@@ -1,0 +1,204 @@
+:root {
+    --color-50: #FFF8F2;
+    /* very light warm cream */
+    --color-100: #FFEFDF;
+    /* soft peach cream */
+    --color-200: #FAD9C2;
+    /* warm light apricot */
+    --color-300: #F4C5A6;
+    /* gentle warm beige */
+    --color-400: #E8B08A;
+    /* soft terracotta-beige */
+    --color-500: #D89C70;
+    /* warm medium tan (main accent) */
+    --color-600: #C38358;
+    /* rich warm clay */
+    --color-700: #A86B44;
+    /* deeper warm brown */
+    --color-800: #8A5435;
+    /* chocolate brown */
+    --color-900: #6D422B;
+    /* dark warm espresso */
+    --color-950: #3F2619;
+    /* almost black warm brown */
+
+    /* Common semantic aliases */
+    --bg: var(--color-50);
+    --bg-soft: var(--color-100);
+    --surface: var(--color-200);
+    --border: var(--color-300);
+    --text: var(--color-900);
+    --text-light: var(--color-700);
+    --accent: var(--color-500);
+    --accent-dark: var(--color-600);
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: var(--accent-dark);
+    color: #e2e8f0;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.container {
+    background: var(--bg-soft);
+    padding: 2.5rem;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 480px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+h1 {
+    text-align: center;
+    color: var(--text);
+    margin: 0 0 1.8rem;
+    font-size: 1.9rem;
+}
+
+.password-display {
+    background: var(--color-900);
+    padding: 1.2rem 1.4rem;
+    border-radius: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.4rem;
+    word-break: break-all;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.8rem;
+    border: 1px solid var(--color-400);
+    position: relative;
+}
+
+.password-display:empty::before {
+    content: "Click Generate";
+    color: var(--color-500);
+    font-size: 1.1rem;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+}
+
+.slider-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+label {
+    font-weight: 500;
+    color: var(--color-900);
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: var(--color-500)
+}
+
+.length-value {
+    text-align: center;
+    font-size: 1.3rem;
+    color: var(--color-700);
+    font-weight: bold;
+}
+
+.checkboxes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--color-500);
+    font-size: 1.05rem;
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    background: white;
+    position: relative;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+input[type="checkbox"]:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+input[type="checkbox"]:checked::before {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+button {
+    background: var(--color-700);
+    color: white;
+    border: none;
+    padding: 1rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 1rem;
+}
+
+button:hover {
+    background: var(--color-900);
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.copy-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #475569;
+    color: white;
+    border: none;
+    padding: 0.5rem 0.9rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.copy-btn:hover {
+    background: #64748b;
+}
+
+footer {
+    text-align: center;
+    margin-top: 2rem;
+    color: #64748b;
+    font-size: 0.9rem;
+}
