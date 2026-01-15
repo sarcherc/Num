@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>自訂隨機數字生成器</title>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            text-align: center;
+            padding: 40px 20px;
+            background: #9f826c;
+            color: #ffffff;
+        }
+
+        h1 {
+            color: #621f0e;
+        }
+
+        .settings {
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .setting-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        input[type="number"] {
+            width: 100px;
+            padding: 10px;
+            font-size: 1.2rem;
+            text-align: center;
+            border: 2px solid #bdc3c7;
+            border-radius: 6px;
+        }
+
+        #result {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 40px 0;
+            min-height: 100px;
+            line-height: 1.6;
+            color: #a7580e;
+        }
+
+        #counter {
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        button {
+            font-size: 1.4rem;
+            padding: 14px 40px;
+            background: #614118;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+
+        button:active {
+            background: #1f6391;
+        }
+
+        .group {
+            margin: 20px 0;
+            padding: 12px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            max-width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>自訂隨機數字生成器</h1>
+
+    <div class="settings">
+        <div class="setting-item">
+            <label>一次生成幾多組</label>
+            <input type="number" id="groupCount" value="1" min="1" max="20" step="1">
+        </div>
+        <div class="setting-item">
+            <label>每組有幾多個數字</label>
+            <input type="number" id="numPerGroup" value="6" min="1" max="50" step="1">
+        </div>
+    </div>
+
+    <div id="counter">已點擊次數：0</div>
+
+    <div id="result">按下按鈕開始生成</div>
+
+    <button onclick="generateNumbers()">生成數字</button>
+
+    <script>
+        let clickCount = 0;
+        const resultElement = document.getElementById("result");
+        const counterElement = document.getElementById("counter");
+
+        function generateNumbers() {
+            // 讀取用家設定
+            let groupCount = parseInt(document.getElementById("groupCount").value) || 1;
+            let numPerGroup = parseInt(document.getElementById("numPerGroup").value) || 6;
+
+            // 簡單限制
+            groupCount = Math.max(1, Math.min(20, groupCount));
+            numPerGroup = Math.max(1, Math.min(50, numPerGroup));
+
+            // 更新計數器
+            clickCount++;
+            counterElement.textContent = `已點擊次數：${clickCount}`;
+
+            // 清空舊結果
+            resultElement.innerHTML = "";
+
+            // 逐組生成
+            for (let g = 1; g <= groupCount; g++) {
+                const numbers = [];
+                while (numbers.length < numPerGroup) {
+                    const num = Math.floor(Math.random() * 49) + 1; // 1~49
+                    if (!numbers.includes(num)) {
+                        numbers.push(num);
+                    }
+                }
+
+                // 排序
+                numbers.sort((a, b) => a - b);
+
+                // 建立顯示
+                const groupDiv = document.createElement("div");
+                groupDiv.className = "group";
+                groupDiv.innerHTML = `<strong>第 ${g} 組：</strong> ${numbers.join(" • ")}`;
+                resultElement.appendChild(groupDiv);
+            }
+
+            // 如果只有一組，保持原本風格
+            if (groupCount === 1) {
+                resultElement.firstChild.style.fontSize = "2.4rem";
+                resultElement.firstChild.style.letterSpacing = "6px";
+            }
+        }
+    </script>
+
+</body>
+
+</html>
