@@ -307,6 +307,226 @@ button:active {
     background: #64748b;
 }
 
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px var(--shadow);
+}
+
+thead th {
+    background: var(--accent);
+    color: white;
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+
+th:first-child {
+    border-top-left-radius: 12px;
+}
+
+th:last-child {
+    border-top-right-radius: 12px;
+}
+
+tbody tr {
+    background: var(--surface);
+    transition: background 0.15s;
+}
+
+tbody tr:hover {
+    background: #FFE0C7;
+    /* slightly brighter warm peach on hover */
+}
+
+td {
+    padding: 14px 16px;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--border);
+}
+
+td:first-child {
+    font-weight: 500;
+    color: var(--text);
+}
+
+td:last-child {
+    color: var(--text-light);
+    font-size: 0.98rem;
+}
+
+/* Month group coloring - subtle warm variations */
+tr[data-month="01"],
+tr[data-month="05"],
+tr[data-month="09"] {
+    background: #FFF8F2;
+}
+
+tr[data-month="02"],
+tr[data-month="06"],
+tr[data-month="10"] {
+    background: #FFE8D6;
+}
+
+tr[data-month="03"],
+tr[data-month="07"],
+tr[data-month="11"] {
+    background: #FED5B9;
+}
+
+tr[data-month="04"],
+tr[data-month="08"],
+tr[data-month="12"] {
+    background: #FBC19C;
+}
+
+@media (max-width: 600px) {
+
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        margin-bottom: 1.5rem;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+    }
+
+    td {
+        border: none;
+        border-bottom: 1px solid var(--border);
+        position: relative;
+        padding-left: 50%;
+    }
+
+    td:before {
+        position: absolute;
+        top: 14px;
+        left: 16px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        color: var(--accent-dark);
+        font-weight: 600;
+    }
+
+    td:nth-of-type(1):before {
+        content: "假期名稱";
+    }
+
+    td:nth-of-type(2):before {
+        content: "日期 (星期)";
+    }
+}
+
+.btn {
+    margin-top: 1.2rem;
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.backBtn {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    padding: 0.5rem 0.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    margin-top: 1.2rem;
+}
+
+.btn:hover {
+    background: var(--accent-dark);
+}
+
+.btnContainer {
+    text-align: center;
+    display: inline-block;
+    margin: 0;
+}
+
+.settings {
+    margin: 30px 0;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.setting-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.setted {
+    margin: 30px 0;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+#rangeInfo {
+    font-size: 1.2rem;
+    color: var(--text);
+    margin: 15px 0 30px;
+    font-weight: bold;
+}
+
+#genResult {
+    font-weight: bold;
+    margin: 40px 0;
+    min-height: 100px;
+    line-height: 1.6;
+    color: #81281e;
+    min-width: 100%;
+}
+
+#counter {
+    font-size: 1.3rem;
+    color: var(--color-500);
+    margin-bottom: 20px;
+}
+
+.genContainer {
+    background: var(--bg-soft);
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.group {
+    margin: 20px 0;
+    padding: 12px;
+    background: white;
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+}
+
 footer {
     text-align: center;
     margin-top: 2rem;

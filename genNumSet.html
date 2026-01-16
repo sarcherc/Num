@@ -5,13 +5,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Number Generator</title>
-    <link rel="stylesheet" href="css/genNumSet.css">
+    <link rel="stylesheet" href="css/sidePages.css">
 </head>
 
 <body>
 
 
-    <div id="container">
+    <div class="genContainer">
         <h1>Customized Nubmer Generator</h1>
         <div class="settings">
             <div class="setting-item">
@@ -35,17 +35,17 @@
             <div class="setting-item"><button onclick="generateNumbers()">GO!</button></div>
         </div>
 
-        <div id="result">Click to generate number groups</div>
+        <div id="genResult">Click to generate number groups</div>
 
 
         <div class="btnContainer">
-            <a class="btn" href="index.html">BACK</a>
+            <a class="backBtn" href="index.html">BACK</a>
         </div>
     </div>
 
     <script>
         let clickCount = 0;
-        const resultElement = document.getElementById("result");
+        const resultElement = document.getElementById("genResult");
         const counterElement = document.getElementById("counter");
         const rangeInfoElement = document.getElementById("rangeInfo");
         const maxRangeInput = document.getElementById("maxRange");

@@ -97,6 +97,7 @@
         .project-card .content {
             padding: 1rem;
             text-align: center;
+            height: 120px;
         }
 
         .project-card h2 {
