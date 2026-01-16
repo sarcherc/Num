@@ -1,6 +1,7 @@
 :root {
     --color-fresh: #f6993b;
     --color-imp: #d16a16;
+    /*Orange*/
     --color-50: #FFF8F2;
     /* very light warm cream */
     --color-100: #FFEFDF;
@@ -33,14 +34,12 @@
     --text-light: var(--color-700);
     --accent: var(--color-500);
     --accent-dark: var(--color-600);
-    --imp: var(--color-imp);
-    --fresh: var(--color-fresh)
 }
 
 body {
     font-family: system-ui, -apple-system, sans-serif;
     background: var(--accent-dark);
-    color: var(--text);
+    color: var(--accent-dark);
     min-height: 100vh;
     margin: 0;
     display: flex;
@@ -161,6 +160,113 @@ input[type="number"] {
     text-align: center;
 }
 
+#result {
+    margin-top: 32px;
+    padding: 24px;
+    background: var(--bg);
+    border-radius: 12px;
+    font-size: 1.32rem;
+    text-align: center;
+    line-height: 1.55;
+    border: 1px solid var(--text);
+    min-height: 100px;
+}
+
+.password-display {
+    background: var(--color-900);
+    padding: 1.2rem 1.4rem;
+    border-radius: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.4rem;
+    word-break: break-all;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.8rem;
+    border: 1px solid var(--color-400);
+    position: relative;
+    color: var(--color-100);
+}
+
+.password-display:empty::before {
+    content: "Click Generate";
+    color: var(--color-500);
+    font-size: 1.1rem;
+}
+
+.pw-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+}
+
+.slider-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+label {
+    font-weight: 500;
+    color: var(--color-900);
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: var(--color-500)
+}
+
+.length-value {
+    text-align: center;
+    font-size: 1.3rem;
+    color: var(--color-700);
+    font-weight: bold;
+}
+
+.checkboxes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--color-500);
+    font-size: 1.05rem;
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    background: white;
+    position: relative;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+input[type="checkbox"]:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+input[type="checkbox"]:checked::before {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
 button {
     background: var(--color-700);
     color: white;
@@ -183,14 +289,27 @@ button:active {
     transform: translateY(0);
 }
 
-#result {
-    margin-top: 32px;
-    padding: 24px;
-    background: var(--bg);
-    border-radius: 12px;
-    font-size: 1.32rem;
+.copy-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #475569;
+    color: white;
+    border: none;
+    padding: 0.5rem 0.9rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.copy-btn:hover {
+    background: #64748b;
+}
+
+footer {
     text-align: center;
-    line-height: 1.55;
-    border: 1px solid var(--text);
-    min-height: 100px;
+    margin-top: 2rem;
+    color: #64748b;
+    font-size: 0.9rem;
 }

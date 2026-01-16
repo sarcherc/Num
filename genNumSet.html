@@ -4,37 +4,44 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>自訂隨機數字生成器（可設範圍）</title>
+    <title>Number Generator</title>
     <link rel="stylesheet" href="css/genNumSet.css">
 </head>
 
 <body>
 
-    <h1>自訂隨機數字生成器</h1>
 
-    <div class="settings">
-        <div class="setting-item">
-            <label>一次生成幾多組</label>
-            <input type="number" id="groupCount" value="1" min="1" max="20" step="1">
+    <div id="container">
+        <h1>Customized Nubmer Generator</h1>
+        <div class="settings">
+            <div class="setting-item">
+                <label>Number of Group</label>
+                <input type="number" id="groupCount" value="1" min="1" max="20" step="1">
+            </div>
+            <div class="setting-item">
+                <label>Numbers in a group</label>
+                <input type="number" id="numPerGroup" value="6" min="1" max="499" step="1">
+            </div>
+            <div class="setting-item">
+                <label>Max. Number (1~X)</label>
+                <input type="number" id="maxRange" value="49" min="2" max="500" step="1">
+            </div>
         </div>
-        <div class="setting-item">
-            <label>每組有幾多個數字</label>
-            <input type="number" id="numPerGroup" value="6" min="1" max="499" step="1">
+        <div calss="setted">
+            <!-- 新增的提示文字 -->
+            <div class="setting-item" id="rangeInfo">Current Range：1～49</div>
+
+            <div class="setting-item" id="counter">Clicked：0</div>
+            <div class="setting-item"><button onclick="generateNumbers()">GO!</button></div>
         </div>
-        <div class="setting-item">
-            <label>最大數字範圍 (1~X)</label>
-            <input type="number" id="maxRange" value="49" min="2" max="500" step="1">
+
+        <div id="result">Click to generate number groups</div>
+
+
+        <div class="btnContainer">
+            <a class="btn" href="index.html">BACK</a>
         </div>
     </div>
-
-    <!-- 新增的提示文字 -->
-    <div id="rangeInfo">目前範圍：1～49</div>
-
-    <div id="counter">已點擊次數：0</div>
-
-    <button onclick="generateNumbers()">生成數字</button>
-
-    <div id="result">按下按鈕開始生成</div>
 
     <script>
         let clickCount = 0;
@@ -43,11 +50,11 @@
         const rangeInfoElement = document.getElementById("rangeInfo");
         const maxRangeInput = document.getElementById("maxRange");
 
-        // 實時更新「目前範圍」顯示
+        // Update current range
         function updateRangeInfo() {
             let maxRange = parseInt(maxRangeInput.value) || 49;
             maxRange = Math.max(2, Math.min(500, maxRange));
-            rangeInfoElement.textContent = `目前範圍：1～${maxRange}`;
+            rangeInfoElement.textContent = `Current Range：1～${maxRange}`;
         }
 
         // 頁面載入時先更新一次
@@ -69,18 +76,18 @@
 
             // 驗證：每組數字個數必須小於最大範圍
             if (numPerGroup >= maxRange) {
-                alert(`錯誤：每組數字個數必須小於最大範圍 ${maxRange}（即 1～${maxRange}）\n你輸入咗 ${numPerGroup} 個數字，請改成 1～${maxRange - 1}。`);
+                alert(`ERROR：每組數字個數必須小於最大範圍 ${maxRange}（即 1～${maxRange}）\n你輸入咗 ${numPerGroup} 個數字，請改成 1～${maxRange - 1}。`);
                 return;
             }
 
-            // 更新計數器
+            // update counter
             clickCount++;
-            counterElement.textContent = `已點擊次數：${clickCount}`;
+            counterElement.textContent = `Clicked：${clickCount}`;
 
-            // 清空舊結果
+            // clear previous result
             resultElement.innerHTML = "";
 
-            // 逐組生成
+            // Generate numbers by groups
             for (let g = 1; g <= groupCount; g++) {
                 const numbers = [];
                 while (numbers.length < numPerGroup) {
@@ -90,20 +97,20 @@
                     }
                 }
 
-                // 排序
+                // Sort
                 numbers.sort((a, b) => a - b);
 
-                // 顯示
+                // Render Groups
                 const groupDiv = document.createElement("div");
                 groupDiv.className = "group";
-                groupDiv.innerHTML = `<strong>第 ${g} 組：</strong> ${numbers.join(" • ")}`;
+                groupDiv.innerHTML = `<strong>Group ${g}</strong> : ${numbers.join(" • ")}`;
                 resultElement.appendChild(groupDiv);
             }
 
-            // 美化單組顯示
+            // visualize
             if (groupCount === 1) {
-                resultElement.firstChild.style.fontSize = "2.4rem";
-                resultElement.firstChild.style.letterSpacing = "6px";
+                resultElement.firstChild.style.fontSize = "2rem";
+                resultElement.firstChild.style.letterSpacing = "5px";
             }
         }
     </script>

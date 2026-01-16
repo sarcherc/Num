@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>香港公眾假期 2026</title>
+    <style>
+        :root {
+            --bg: #FFFBF7;
+            /* very soft warm cream */
+            --bg-soft: #FFF5EB;
+            /* slightly deeper cream */
+            --surface: #FFE8D6;
+            /* warm light peach/beige for cards/tables */
+            --border: #FED5B9;
+            /* gentle warm border */
+            --text: #7D4826;
+            /* rich warm brown text */
+            --text-light: #A15F32;
+            /* lighter warm brown */
+            --accent: #E08E5C;
+            /* cozy caramel accent */
+            --accent-dark: #C57644;
+            /* deeper warm clay */
+            --shadow: rgba(140, 90, 60, 0.10);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--accent);
+            margin-bottom: 0.8em;
+            font-size: 2.1rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px var(--shadow);
+        }
+
+        thead th {
+            background: var(--accent);
+            color: white;
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        th:first-child {
+            border-top-left-radius: 12px;
+        }
+
+        th:last-child {
+            border-top-right-radius: 12px;
+        }
+
+        tbody tr {
+            background: var(--surface);
+            transition: background 0.15s;
+        }
+
+        tbody tr:hover {
+            background: #FFE0C7;
+            /* slightly brighter warm peach on hover */
+        }
+
+        td {
+            padding: 14px 16px;
+            vertical-align: middle;
+            border-bottom: 1px solid var(--border);
+        }
+
+        td:first-child {
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        td:last-child {
+            color: var(--text-light);
+            font-size: 0.98rem;
+        }
+
+        /* Month group coloring - subtle warm variations */
+        tr[data-month="01"],
+        tr[data-month="05"],
+        tr[data-month="09"] {
+            background: #FFF8F2;
+        }
+
+        tr[data-month="02"],
+        tr[data-month="06"],
+        tr[data-month="10"] {
+            background: #FFE8D6;
+        }
+
+        tr[data-month="03"],
+        tr[data-month="07"],
+        tr[data-month="11"] {
+            background: #FED5B9;
+        }
+
+        tr[data-month="04"],
+        tr[data-month="08"],
+        tr[data-month="12"] {
+            background: #FBC19C;
+        }
+
+        @media (max-width: 600px) {
+
+            table,
+            thead,
+            tbody,
+            th,
+            td,
+            tr {
+                display: block;
+            }
+
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+            tr {
+                margin-bottom: 1.5rem;
+                border: 1px solid var(--border);
+                border-radius: 10px;
+            }
+
+            td {
+                border: none;
+                border-bottom: 1px solid var(--border);
+                position: relative;
+                padding-left: 50%;
+            }
+
+            td:before {
+                position: absolute;
+                top: 14px;
+                left: 16px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                color: var(--accent-dark);
+                font-weight: 600;
+            }
+
+            td:nth-of-type(1):before {
+                content: "假期名稱";
+            }
+
+            td:nth-of-type(2):before {
+                content: "日期 (星期)";
+            }
+        }
+
+        .btn {
+            margin-top: 1.2rem;
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--accent-dark);
+        }
+
+        .btnContainer {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>香港公眾假期 2026</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>假期名稱</th>
+                    <th>日期 (星期)</th>
+                </tr>
+            </thead>
+            <tbody id="holidays"></tbody>
+        </table>
+        <div class="btnContainer">
+            <a class="btn" href="index.html">BACK</a>
+        </div>
+
+        <script>
+            const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+
+            fetch('json/hkHoliday.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('無法載入假期資料：' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const holidays = data.vcalendar[0].vevent;
+                    const tbody = document.getElementById('holidays');
+                    const loading = document.getElementById('loading');
+                    const errorDiv = document.getElementById('error');
+                    const table = document.getElementById('table');
+
+                    holidays.forEach(event => {
+                        const dateStr = event.dtstart[0];
+                        const year = dateStr.substring(0, 4);
+                        const month = dateStr.substring(4, 6);
+                        const day = dateStr.substring(6, 8);
+
+                        const jsDate = new Date(`${year}-${month}-${day}`);
+                        const weekday = weekdays[jsDate.getDay()];
+
+                        const formattedDate = `${year}-${month}-${day} (${weekday})`;
+
+                        const tr = document.createElement('tr');
+                        tr.setAttribute('data-month', month);
+
+                        const tdName = document.createElement('td');
+                        tdName.textContent = event.summary;
+
+                        const tdDate = document.createElement('td');
+                        tdDate.textContent = formattedDate;
+
+                        tr.appendChild(tdName);
+                        tr.appendChild(tdDate);
+                        tbody.appendChild(tr);
+                    });
+
+                    // Hide loading, show table
+                    loading.style.display = 'none';
+                    table.style.display = 'table';
+                })
+                .catch(err => {
+                    const loading = document.getElementById('loading');
+                    const errorDiv = document.getElementById('error');
+
+                    loading.style.display = 'none';
+                    errorDiv.style.display = 'block';
+                    errorDiv.textContent = '載入失敗：' + err.message;
+                    console.error(err);
+                });
+        </script>
+
+</body>
+
+</html>

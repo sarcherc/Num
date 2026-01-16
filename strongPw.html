@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Strong Password Generator</title>
-    <link rel="stylesheet" href="css/strongPw.css">
+    <link rel="stylesheet" href="css/sidePages.css">
 </head>
 
 <body>
@@ -17,7 +17,7 @@
             <!-- Generated password appears here -->
         </div>
 
-        <div class="controls">
+        <div class="pw-controls">
             <div class="slider-container">
                 <label for="length">Password Length: <span id="lengthValue">16</span></label>
                 <input type="range" id="length" min="8" max="32" value="16" step="1">
@@ -40,7 +40,9 @@
 
             <button onclick="generatePassword()">Generate Password</button>
         </div>
-
+        <div class="btnContainer">
+            <a class="btn" href="index.html">BACK</a>
+        </div>
         <footer>Generated passwords are created in your browser • No data is sent anywhere</footer>
     </div>
 
