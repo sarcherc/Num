@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Date List Generator</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+    }
+
+    h1 {
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    input, select {
+        width: 250px;
+        padding: 8px;
+    }
+
+    button {
+        padding: 10px 20px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    textarea {
+        width: 100%;
+        height: 400px;
+        margin-top: 20px;
+        font-family: Consolas, monospace;
+    }
+</style>
+</head>
+<body>
+
+<h1>Date List Generator</h1>
+
+<div class="form-group">
+    <label>First Date (YYYYMMDD)</label>
+    <input type="text" id="startDate" placeholder="20260801">
+</div>
+
+<div class="form-group">
+    <label>Number of Dates</label>
+    <input type="number" id="dayCount" value="31" min="1">
+</div>
+
+<div class="form-group">
+    <label>Weekday of First Date</label>
+    <select id="startWeekday">
+        <option>MON</option>
+        <option>TUE</option>
+        <option>WED</option>
+        <option>THU</option>
+        <option>FRI</option>
+        <option>SAT</option>
+        <option>SUN</option>
+    </select>
+</div>
+
+<button onclick="generateList()">Generate</button>
+
+<textarea id="output" readonly></textarea>
+
+<script>
+function generateList() {
+
+    const startDateStr = document.getElementById('startDate').value.trim();
+    const dayCount = parseInt(document.getElementById('dayCount').value);
+    const startWeekday = document.getElementById('startWeekday').value;
+
+    if (!/^\d{8}$/.test(startDateStr)) {
+        alert('Please enter date in YYYYMMDD format');
+        return;
+    }
+
+    const year = parseInt(startDateStr.substring(0, 4));
+    const month = parseInt(startDateStr.substring(4, 6)) - 1;
+    const day = parseInt(startDateStr.substring(6, 8));
+
+    const startDate = new Date(year, month, day);
+
+    const weekdays = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+    let weekdayIndex = weekdays.indexOf(startWeekday);
+
+    let result = [];
+
+    for (let i = 0; i < dayCount; i++) {
+
+        let currentDate = new Date(startDate);
+        currentDate.setDate(startDate.getDate() + i);
+
+        let yyyy = currentDate.getFullYear();
+        let mm = String(currentDate.getMonth() + 1).padStart(2, '0');
+        let dd = String(currentDate.getDate()).padStart(2, '0');
+
+        let dateCode = `${yyyy}${mm}${dd}`;
+        let weekday = weekdays[(weekdayIndex + i) % 7];
+
+        result.push(`${dateCode} ${weekday}`);
+    }
+
+    document.getElementById('output').value = result.join('\n');
+}
+</script>
+
+</body>
+</html>
